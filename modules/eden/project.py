@@ -2611,8 +2611,13 @@ class S3ProjectTaskModel(S3Model):
                         continue
                 represent = table[var].represent or s3mgr.represent
                 if rvar:
+                    strings = (
+                        table[var].label,
+                        represent(rvar),
+                        represent(vvar)
+                    )
                     changed[var] = "%s changed from %s to %s" % \
-                        (table[var].label, represent(rvar), represent(vvar))
+                        strings
                 else:
                     changed[var] = "%s changed to %s" % \
                         (table[var].label, represent(vvar))
