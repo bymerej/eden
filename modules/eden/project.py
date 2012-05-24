@@ -2609,9 +2609,7 @@ class S3ProjectTaskModel(S3Model):
                     vvar = int(vvar)
                     if vvar == rvar:
                         continue
-                represent = table[var].represent
-                if not represent:
-                    represent = lambda o: o
+                represent = table[var].represent or (lambda v: s3mgr.represent(table[var], v))
                 if rvar:
                     changed[var] = "%s changed from %s to %s" % \
                         (table[var].label, represent(rvar), represent(vvar))
@@ -2621,9 +2619,8 @@ class S3ProjectTaskModel(S3Model):
 
         if changed:
             table = s3db.project_comment
-            text = s3_auth_user_represent(current.auth.user.id)
-            for var in changed:
-                text = "%s\n%s" % (text, changed[var])
+            user = s3_auth_user_represent(current.auth.user.id)
+            text = "%s changed:\n%s" % (user, UL(list(LI(XML(v)) for v in changed.values())))
             table.insert(task_id=id,
                          body=text)
 
