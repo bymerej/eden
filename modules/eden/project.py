@@ -2620,7 +2620,7 @@ class S3ProjectTaskModel(S3Model):
         if changed:
             table = s3db.project_comment
             user = s3_auth_user_represent(current.auth.user.id)
-            text = "%s changed:\n%s" % (user, UL(list(LI(v) for v in changed.values())))
+            text = "%s changed lskjflkj:\n%s" % (user, UL(list(LI(v) for v in changed.values())))
             table.insert(task_id=id,
                          body=text)
 
