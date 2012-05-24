@@ -2609,7 +2609,7 @@ class S3ProjectTaskModel(S3Model):
                     vvar = int(vvar)
                     if vvar == rvar:
                         continue
-                represent = s3mgr.represent
+                represent = table[var].represent or s3mgr.represent
                 if rvar:
                     changed[var] = "%s changed from %s to %s" % \
                         (table[var].label, represent(rvar), represent(vvar))
